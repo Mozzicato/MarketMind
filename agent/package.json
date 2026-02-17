@@ -1,0 +1,16 @@
+{
+    "name": "@marketmind/agent",
+    "version": "1.0.0",
+    "description": "Eliza logic for MarketMind Business Agent",
+    "main": "src/index.ts",
+    "type": "module",
+    "dependencies": {
+        "@ai16z/eliza": "latest",
+        "ethers": "^6.10.0",
+        "dotenv": "^16.4.1"
+    },
+    "devDependencies": {
+        "typescript": "^5.3.3",
+        "ts-node": "^10.9.2"
+    }
+}

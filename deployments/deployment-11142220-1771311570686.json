@@ -1,0 +1,11 @@
+{
+  "network": "sepolia",
+  "chainId": "11142220",
+  "deployer": "0x4035991C97140c5f9af570c994B3F53259488c2b",
+  "contracts": {
+    "CreditScoring": "0x3B272C51f41f85d50220EeE2b4420709af295588",
+    "MicroLending": "0xa688063f5f9A0B2635F64E56e5975b9C958b220a",
+    "SampleAgent": "0x308597EB73a6bA43DBaA658aD6f9292dBf428284"
+  },
+  "timestamp": "2026-02-17T06:59:30.685Z"
+}

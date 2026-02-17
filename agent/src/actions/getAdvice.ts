@@ -12,7 +12,7 @@ export const getAdviceAction: Action = {
         const text = message.content.text.toLowerCase();
         return text.includes("advice") || text.includes("tips") || text.includes("how am i doing") || text.includes("optimize");
     },
-    handler: async (runtime: IAgentRuntime, message: Memory, state: State) => {
+    handler: async (runtime: IAgentRuntime, message: Memory, state?: State) => {
         try {
             const provider = new ethers.JsonRpcProvider(process.env.CELO_SEPOLIA_RPC_URL);
             const agentContract = new ethers.Contract(

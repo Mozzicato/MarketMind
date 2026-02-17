@@ -29,7 +29,6 @@ export const businessStateProvider: Provider = {
                 agentContract.getAllInventoryItems()
             ]);
 
-            // Fetch top 3 items for context
             const inventorySummary = [];
             for (const item of items.slice(0, 3)) {
                 const data = await agentContract.getInventory(item);
@@ -38,12 +37,12 @@ export const businessStateProvider: Provider = {
 
             return `
 Current Business State (Onchain):
-- Credit Score: ${score.toString()} (Target: 850)
+- Reputation Score: ${score.toString()} (Max: 850)
 - Wallet Balance: ${ethers.formatEther(balance)} cUSD
 - Total Revenue: ${ethers.formatEther(revenue)} cUSD
 - Total Costs: ${ethers.formatEther(costs)} cUSD
 - Top Inventory: ${inventorySummary.length > 0 ? inventorySummary.join(", ") : "Empty"}
-- Financial Model: Sharia-compliant (Interest-free)
+- Financial Model: Ethical & Interest-free
 `;
         } catch (error) {
             console.error("Error in businessStateProvider:", error);

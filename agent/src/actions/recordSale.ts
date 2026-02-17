@@ -13,7 +13,7 @@ export const recordSaleAction: Action = {
         const text = message.content.text.toLowerCase();
         return text.includes("sold") || text.includes("sale") || text.includes("selling");
     },
-    handler: async (runtime: IAgentRuntime, message: Memory, state: State) => {
+    handler: async (runtime: IAgentRuntime, message: Memory, state?: State) => {
         const text = message.content.text;
 
         // Simple NLP extraction (can be improved with LLM)

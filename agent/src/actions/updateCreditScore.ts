@@ -12,7 +12,7 @@ export const updateCreditScoreAction: Action = {
         const text = message.content.text.toLowerCase();
         return text.includes("credit score") || text.includes("update my score");
     },
-    handler: async (runtime: IAgentRuntime, message: Memory, state: State) => {
+    handler: async (runtime: IAgentRuntime, message: Memory, state?: State) => {
         try {
             const provider = new ethers.JsonRpcProvider(process.env.CELO_SEPOLIA_RPC_URL);
             const wallet = new ethers.Wallet(process.env.DEPLOYER_PRIVATE_KEY!, provider);

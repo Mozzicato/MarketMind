@@ -12,27 +12,23 @@ export const paySupplierAction: Action = {
         const text = message.content.text.toLowerCase();
         return text.includes("pay supplier") || text.includes("restock") || text.includes("order");
     },
-    handler: async (runtime: IAgentRuntime, message: Memory, state: State) => {
+    handler: async (runtime: IAgentRuntime, message: Memory, state?: State) => {
         const text = message.content.text;
 
-        // Extract amount and item
-        // Expected usage: "MarketMind, pay Bala 30 cUSD for tomatoes"
         const amountMatch = text.match(/(\d+)\s+(cusd|celo|naira)/i);
         const itemMatch = text.match(/for\s+(\w+)/i);
         const supplierMatch = text.match(/pay\s+(\w+)/i);
 
         if (!amountMatch || !itemMatch || !supplierMatch) {
             return {
-                text: "To pay a supplier, please specify the amount, the item, and who I'm paying. For example: 'Pay Bala 30 cUSD for onions'."
+                text: "To process a payment, please specify the amount, item, and supplier name. Example: 'Pay Bala 30 cUSD for onions'."
             };
         }
 
         const amount = parseInt(amountMatch[1]);
         const item = itemMatch[1];
         const supplierName = supplierMatch[1];
-
-        // Mock supplier address lookup (In a real app, this would be in a DB)
-        const supplierAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79ee";
+        const supplierAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79ee"; // Example address
         const amountInWei = ethers.parseEther(amount.toString());
 
         try {
@@ -45,20 +41,17 @@ export const paySupplierAction: Action = {
                 vendorWallet
             );
 
-            // Execute the payment
-            // Note: In our contract, this is restricted to the human vendor (owner)
-            // The AI provides the recommendation, and the vendor triggers it via this command.
-            const tx = await agentContract.paySupplier(supplierAddress, amountInWei, item, 100); // quantity hardcoded for demo
+            const tx = await agentContract.paySupplier(supplierAddress, amountInWei, item, 100);
             await tx.wait();
 
             return {
-                text: `Bismillah, payment processed! I've sent ${amount} cUSD to ${supplierName} for ${item}. Your inventory has been updated onchain and the transaction is recorded in your business history. 🚚✅`,
+                text: `Payment sent! I've transferred ${amount} cUSD to ${supplierName} for ${item}. Business history and inventory have been updated onchain. 🚚✅`,
                 action: "PAY_SUPPLIER_SUCCESS"
             };
         } catch (error) {
             console.error("Error paying supplier:", error);
             return {
-                text: `I couldn't process the payment to ${supplierName}. Please ensure there's enough balance in your agent wallet and that the supplier address is correct.`
+                text: `Failed to process payment to ${supplierName}. Check your wallet balance and try again.`
             };
         }
     },
@@ -70,7 +63,7 @@ export const paySupplierAction: Action = {
             },
             {
                 user: "MarketMind",
-                content: { text: "Processing payment to Bala now. I'll update you once the transfer is confirmed.", action: "PAY_SUPPLIER" }
+                content: { text: "Sending payment to Bala now. Your inventory will be updated shortly.", action: "PAY_SUPPLIER" }
             }
         ]
     ] as ActionExample[][]

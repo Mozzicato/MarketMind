@@ -16,7 +16,7 @@ module.exports = {
         hardhat: {
             chainId: 1337,
         },
-        sepolia: {
+        celoSepolia: {
             url: process.env.CELO_SEPOLIA_RPC_URL || "https://forno.celo-sepolia.celo-testnet.org",
             accounts: process.env.DEPLOYER_PRIVATE_KEY ? [process.env.DEPLOYER_PRIVATE_KEY] : [],
             chainId: 11142220,
@@ -34,6 +34,27 @@ module.exports = {
         artifacts: "./artifacts",
     },
     etherscan: {
-        apiKey: process.env.ETHERSCAN_API_KEY || "",
+        apiKey: {
+            celoSepolia: "any",
+            celo: "any",
+        },
+        customChains: [
+            {
+                network: "celoSepolia",
+                chainId: 11142220,
+                urls: {
+                    apiURL: "https://api-sepolia.celoscan.io/v2/api",
+                    browserURL: "https://sepolia.celoscan.io",
+                },
+            },
+            {
+                network: "celo",
+                chainId: 42220,
+                urls: {
+                    apiURL: "https://explorer.celo.org/api",
+                    browserURL: "https://explorer.celo.org",
+                },
+            },
+        ],
     },
 };

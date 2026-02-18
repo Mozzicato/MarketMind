@@ -82,21 +82,56 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
+  // State for Chart Data (Editable)
+  const [revenueData, setRevenueData] = useState(MOCK_REVENUE_DATA);
+
   const handleSimulateVoice = () => {
     if (!inputText) return;
     setIsSimulating(true);
 
     // Mocking the agent response sequence
     setChatMessages(prev => [...prev, { text: inputText, type: 'user' }]);
+
+    // Parse input for demonstration
+    const amountMatch = inputText.match(/(\d+)/);
+    const amount = amountMatch ? parseInt(amountMatch[0]) : 0;
+
+    if (inputText.toLowerCase().includes("sold") && amount > 0) {
+      // Update Chart Data Visually
+      const today = new Date().toLocaleDateString('en-US', { weekday: 'short' });
+      setRevenueData(prev => prev.map(day => {
+        if (day.name === 'Sun') { // Basic logic: Update Sunday/Latest day
+          return { ...day, revenue: day.revenue + amount };
+        }
+        return day;
+      }));
+
+      // Update stats
+      setStats(prev => ({
+        ...prev,
+        totalRevenue: (parseFloat(prev.totalRevenue) + (amount / 1000)).toFixed(4), // Convert to cUSD approx
+        txCount: prev.txCount + 1,
+        creditScore: Math.min(850, prev.creditScore + 5)
+      }));
+    }
+
+    const currentInput = inputText;
     setInputText('');
 
     setTimeout(() => {
+      let responseText = "I didn't catch that. Could you repeat?";
+      if (currentInput.toLowerCase().includes("sold")) {
+        responseText = `Great! I've recorded the sale of ${amount} naira. Your revenue chart and credit score have been updated instantly.`;
+      } else if (currentInput.toLowerCase().includes("pay")) {
+        responseText = "I've initiated the payment process. Waiting for confirmation...";
+      }
+
       setChatMessages(prev => [...prev, {
-        text: "Understood! I'm verifying that transaction on the Celo blockchain now. Your credit score will update shortly.",
+        text: responseText,
         type: 'agent'
       }]);
       setIsSimulating(false);
-    }, 2000);
+    }, 1500);
   };
 
   return (
@@ -197,7 +232,7 @@ export default function Dashboard() {
 
               <div className="h-350">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={MOCK_REVENUE_DATA}>
+                  <AreaChart data={revenueData}>
                     <defs>
                       <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3} />

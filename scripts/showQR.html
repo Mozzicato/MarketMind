@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SelfClaw Verification QR</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background: #05070a; color: white; }
+        .container { background: #0a0c10; padding: 30px; border-radius: 20px; display: inline-block; border: 1px solid #1e293b; }
+        img { background: white; padding: 10px; border-radius: 10px; }
+        h1 { color: #00f2fe; }
+        p { color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Verify MarketMind</h1>
+        <p>Scan this QR code with the <b>Self app</b> to complete your agent verification.</p>
+        <div id="qr-container"></div>
+        <p style="font-size: 12px; margin-top: 20px;">Session ID: <br><span id="session-id"></span></p>
+    </div>
+
+    <script>
+        const sessionData = {
+          "sessionId": "b6937ac0-bc12-46f5-a4da-e2fb80bdb515",
+          "userIdType": "uuid",
+          "devMode": false,
+          "endpointType": "https",
+          "header": "",
+          "logoBase64": "https://selfclaw.ai/favicon.png",
+          "deeplinkCallback": "",
+          "disclosures": {
+            "minimumAge": 18,
+            "excludedCountries": [],
+            "ofac": false
+          },
+          "chainID": 42220,
+          "version": 2,
+          "userDefinedData": "8c16faee5f7bfc440000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "appName": "SelfClaw",
+          "scope": "selfclaw-verify",
+          "endpoint": "https://selfclaw.ai/api/selfclaw/v1/callback",
+          "userId": "1f2f5825-e942-42df-bb14-ee47b38e3d8e"
+        };
+
+        const qrData = encodeURIComponent(JSON.stringify(sessionData));
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${qrData}`;
+        
+        document.getElementById('qr-container').innerHTML = `<img src="${qrUrl}" alt="QR Code">`;
+        document.getElementById('session-id').innerText = sessionData.userId;
+    </script>
+</body>
+</html>

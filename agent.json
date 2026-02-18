@@ -1,0 +1,21 @@
+{
+    "type": "Agent",
+    "name": "MarketMind Business Agent",
+    "description": "An autonomous business agent for informal market vendors on Celo. Managing payments, records, and credit reputation.",
+    "image": "ipfs://QmXyZ...",
+    "endpoints": [
+        {
+            "type": "a2a",
+            "url": "https://marketmind-agent.vercel.app/api/v1/message"
+        },
+        {
+            "type": "wallet",
+            "address": "0x308597EB73a6bA43DBaA658aD6f9292dBf428284",
+            "chainId": 11142220
+        }
+    ],
+    "supportedTrust": [
+        "reputation",
+        "validation"
+    ]
+}

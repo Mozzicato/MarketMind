@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "sessionId": "7006dcd0-06cc-49de-ae2a-9ddcac2ac893",
+  "agentKeyHash": "8c16faee5f7bfc44",
+  "challenge": "{\"domain\":\"selfclaw.ai\",\"action\":\"verify-agent\",\"sessionId\":\"7006dcd0-06cc-49de-ae2a-9ddcac2ac893\",\"agentKeyHash\":\"8c16faee5f7bfc44\",\"timestamp\":1771365346901,\"nonce\":\"6a68382bb4e70d5344f84845976c53b2\",\"expiresAt\":1771365946901}",
+  "signatureRequired": true,
+  "signatureVerified": false,
+  "selfApp": {
+    "sessionId": "3c5c9a07-b73a-491a-83e8-b448adff9c74",
+    "userIdType": "uuid",
+    "devMode": false,
+    "endpointType": "https",
+    "header": "",
+    "logoBase64": "https://selfclaw.ai/favicon.png",
+    "deeplinkCallback": "",
+    "disclosures": {
+      "minimumAge": 18,
+      "excludedCountries": [],
+      "ofac": false
+    },
+    "chainID": 42220,
+    "version": 2,
+    "userDefinedData": "8c16faee5f7bfc440000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "appName": "SelfClaw",
+    "scope": "selfclaw-verify",
+    "endpoint": "https://selfclaw.ai/api/selfclaw/v1/callback",
+    "userId": "7006dcd0-06cc-49de-ae2a-9ddcac2ac893"
+  },
+  "config": {
+    "scope": "selfclaw-verify",
+    "endpoint": "https://selfclaw.ai/api/selfclaw/v1/callback",
+    "appName": "SelfClaw",
+    "version": 2,
+    "staging": false
+  }
+}
